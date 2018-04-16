@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 你好！helloworld！
 你好！helloworld！
 你好！helloworld！
@@ -5,3 +6,6 @@
 你好！helloworld！
 你好！helloworld！
 你好！helloworld！
+=======
+这是文件2，这里面放点东西！
+>>>>>>> 746e88836d73bdd4f6bb1f478860ef9c537637d1
