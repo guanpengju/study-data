@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	
+	<meta http-equiv="X-UA-Compatible" content="ie=dege">
+	<title>Document</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+	
+</head>
+<body>
+	<div id="app">
+		<button v-on:click="showsomething">showsomething</button>
+		<button v-on:click="showsome(123,$event)">showsome</button>
+		
+		<!-- 点击下面div中的内容会事件冒泡 -->
+		<!-- v-on:后面接原生事件，触发一个事件 -->
+		<div v-on:click="showsome(1,$event)">
+			<button v-on:click.stop="showsome(123,$event)">showsome</button>
+		</div>
+		<!-- .stop会阻止事件冒泡 -->
+		
+		<a href="https://www.baidu.com" v-on:click.prevent="showsome">click me</a>
+		<!-- .prevent阻止默认事件，现在则不能跳转 -->
+		
+		<!-- 这就是事件修饰符，用.加修饰符就可以使用 -->
+		
+		<input type="text" v-on:keyup="keyup" />
+		<input type="text" v-on:keyup.enter="keyup" />
+		<!-- 这是函数中的if可以省去，参数event也省去 -->
+		<!-- 有.space等，如果想多个键触发可以链式调用，也可以直接.13表示enter -->
+		<input type="text" v-on:keyup.enter.space="keyup" />
+		<input type="text" v-on:keyup.13="keyup" />
+		
+		
+		<!-- 系统修饰符如shift,需要配合其他键使用,如shift+G -->
+		<input type="text" v-on:keyup.shift="shift($event)" />
+	</div>
+	
+	<div id="abc">
+		{{ name }}
+		{{ age }}
+		<br/>
+		<!-- 输入什么就在output中显示什么 -->
+		<input type="text" v-on:keyup="changename"/>
+		output:{{ name }}
+		
+		<!-- 输入一些字符，按回车后显示到output中 -->
+		<input type="text" v-on:keyup.enter="name = $event.target.value" />
+		output:{{ name }}
+		<!-- name直接获取vue中的属性，在HTML中通过$event获取时间对象 -->
+		
+		<form action="" v-on:submit.prevent>
+			<input type="submit" />
+		</form>
+	</div>
+	
+	
+	<script>
+		new Vue({
+			el:"#app",
+			methods:{
+				showsomething:function(){
+				
+					alert("showsomething")
+				},
+				
+				showsome:function(msg,event){
+					//事件对象通过event注入
+					console.log(msg)
+					console.log(event)
+					alert("showsome")
+				},
+				keyup:function(event){
+					if(event.which==13){//13是一个enter键，每一个键对应不同的号码
+						alert("you pressed enter")
+					}
+				},
+				shift:function(event){
+					alert("shift")
+				}
+			}
+			
+			
+			
+		})
+		
+		new Vue({
+			el:"#abc",
+			data:{
+				name:"guanpengju",
+				age:26
+			},
+			methods:{
+				changename:function(event){
+				//获取通过event获取事件对象，得到value值
+					this.name=event.target.value;
+				}
+			}
+			
+		})
+		
+		
+	</script>
+</body>
+</html>

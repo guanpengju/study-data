@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	
+	<meta http-equiv="X-UA-Compatible" content="ie=dege">
+	<title>Document</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+	
+</head>
+<body>
+	<div id="app">
+		{{ msg }}<!-- 双大括号就可以写data中的变量,vue实例下面的属性 -->
+		{{ name }}
+		{{ age * 2 }}<!-- 可以直接写表达式，只能写算术运算，不能逻辑（如for，if等） -->
+		{{ age > 60?"老人":"年轻人" }}
+		{{ fullName.split(" ")}}
+		{{ fullName.split(" ")[1]}}<!-- 取fullName中的第一个字符串 -->
+		{{ getFullName() }}<!-- 调用函数   -->
+		{{ getFullName2(name,age) }}
+	</div>
+	<script>
+		var vm = new Vue({ //这里var vm可以不写
+			el:"#app",
+			data:{//data定义字段
+				msg:"hello world!!!",
+				name:"guanpengju",
+				age:60,
+				fullName:"guan pengju"
+			},
+			//底层都是通过js操作
+			
+			methods:{//定义函数
+				getFullName:function(){
+					return this.name+""+this.age
+					//vm实例把data字段全部挂到最顶层，所以可以直接用this
+				}
+				
+				getFullName2:function(first,last){//带参数的函数
+					return first+ "" +last
+				}
+			}
+			
+		})//构造函数，其中有el这个属性
+	</script>
+	
+	
+</body>
+</html>

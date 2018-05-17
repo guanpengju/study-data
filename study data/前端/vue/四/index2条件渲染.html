@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	
+	<meta http-equiv="X-UA-Compatible" content="ie=dege">
+	<title>Document</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+	
+</head>
+<body>
+	<div id="app">
+		{{ html }}<!-- 把所有data数据渲染成字符串 -->
+		<!-- 防止跨域脚本攻击，防止用户改变dom节点 -->
+		<div v-html="html"></div>
+		<!-- 慎重选用v-html -->
+		{{ msg }}
+		<button v-on:click="msg='123'">click me</button>
+		<!-- 这时msg就会重新渲染 -->
+		<div v-once>
+			<!-- 这里面就会渲染一次，就是最初化的默认值 -->
+			{{ msg }}
+		</div>
+		
+		<!-- 下面都会输出 -->
+		<p>有{{ items }}个现货</p>
+		<p>所剩不多了，快点买吧</p>
+		<p>没有库存了，请耐心等待</p>
+		
+		<!-- 下面是条件渲染 -->
+		<p v-if="items>10">有{{ items }}个现货</p>
+		<p v-else-if="items>1">所剩不多了，快点买吧</p>
+		<p v-else>没有库存了，请耐心等待</p>
+		
+		<!-- 条件判断，满足则显示 -->
+		<p v-if="items > 50 ">注意事项</p>
+		<p v-if="items > 50 ">现在买打八折</p>
+		<template v-if="items > 50 ">
+			<p >注意事项</p>
+			<p>现在买打八折</p>
+		</template>
+		
+		<!-- 隐藏和显示,底层是display:none隐藏 -->
+		<p v-show="Ninja">I am hide</p>
+		<p v-show="!Ninja">I am here</p>
+		<button v-on:click="Ninja = !Ninja">Ninja skill</button>
+		
+		
+	</div>
+	
+	<script>
+		new Vue({
+			el:"#app",
+			data:{
+				html:"<h1>hello</h1>",
+				msg:"guanpengju",
+				items:60,
+				Ninja:true
+			}
+			
+		})
+	</script>
+	
+</body>
+</html>

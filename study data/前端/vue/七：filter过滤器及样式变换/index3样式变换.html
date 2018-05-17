@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	
+	<meta http-equiv="X-UA-Compatible" content="ie=dege">
+	<title>Document</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+</head>
+<body>
+	<div id="app">
+		{{msg}}
+		<div style="height:200px;width:200px;" v-bind:style="{backgroundColor:'blue'}">
+		<!-- vue会将这两个style融合到一起 -->
+			{{msg}}
+		</div>
+		
+		<div style="height:200px;width:200px;" v-bind:style="{backgroundColor:color}">
+		
+		</div>
+		
+		<!-- 一次绑定多个属性 -->
+		<div style="height:200px;width:200px;" v-bind:style="[styles1,styles2]"></div>
+		<button v-on:click="change">change</button>
+		
+	</div>
+	
+	<script>
+		new Vue({
+			el:"#app",
+			data:{
+				//注意data中不能使用this，因为还没有将data绑定到HTML中
+				msg:"hello world!!",
+				//color:"red"
+				color:"yellow",
+				styles:{
+					backgroundColor:"red"
+				}
+			},
+			methods:{
+				change:function(){
+					if(this.color=="yellow"){
+						this.color="red";
+					}else{
+						this.color="yellow";
+					}
+				}
+			}
+			,
+			computed:{
+				styles1:function(){
+					return{
+						backgroundColor:this.color
+					}
+				},
+				styles2:function(){
+					return{
+						'border-radius':"50px"
+					}
+				}
+			}
+			
+		})
+	</script>
+	
+</body>
+</html>

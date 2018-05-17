@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	
+	<meta http-equiv="X-UA-Compatible" content="ie=dege">
+	<title>Document</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+	
+</head>
+<body>
+	<div id="app">
+		<a href="http://www.baidu.com">baidu</a>
+		<a href="{{ url }}">baidu</a><!-- 用vue语法，这时不能打开链接 -->
+		<!-- 因为vue写什么都是字符串 -->
+		<!-- 这里借助vue指定的东西,这里用bind的href -->
+		
+		<a v-bind:href="url">baidu</a>
+		<!-- 下面是一个练习 -->
+		<!--
+			输出一个电影的名字和上映日期，判断一个电影是否是新电影>2000则新
+			
+		-->
+		电影名：{{ movieTitle }}
+		上映日期：{{ movieDate }}
+		这部电影是{{ getMovie() }}电影
+		<div>
+			hover me!!!
+		</div>
+		
+	</div>
+
+	<script>
+		//现在将数据绑定到链接上
+		new Vue({
+			el:"#app",
+			data:{
+				url:"https://www.baidu.com",
+				movieTitle:"妖猫传",
+				movieDate:"2017"
+				
+			},
+			methods:{
+				getMovie:function(){
+					return this.movieDate > 2000? "新" : "旧"
+				}
+			}
+			
+		})
+		//vue指令语法，v-指令名字+:+指令参数=指令的表达式
+		
+	</script>
+</body>
+</html>

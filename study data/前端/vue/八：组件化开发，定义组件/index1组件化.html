@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	
+	<meta http-equiv="X-UA-Compatible" content="ie=dege">
+	<title>Document</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+	<!--
+	<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+	<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+	-->
+</head>
+<body>
+	<div id="app">
+		html模板{{}},就是整个div挂载点当做HTML模板
+		
+		<my-component></my-component>
+	</div>
+	
+	<script>
+		
+		
+		//自定义组件名称，如果名称与引入组件名称相同，则会覆盖掉引入的组件
+		//组件有两个属性，1名字，2template，必须有一个根节点
+		Vue.component("my-component",{
+			//注意：组件依然要有vue实例，new Vue
+			template:'<div><h1>联系方式</h1><p>联系我：{{msg}}</p></div>',
+			data:function(){//不能直接用{{}}写到template中，而使用函数
+				return{
+				msg:"1234567890"
+				}
+				
+			}
+		})
+		//注意：定义的组件必须放在new vue的上面，否则失效
+		
+		new Vue({
+			el:"#app",
+			//el:".class",只会找到第一个class标签进行渲染
+			
+			//template模板,会把HTML模板给覆盖掉
+			//注意：这里不能引入element的css样式，否则没有效果
+			//另外，如果没有el，也不会覆盖，因为不知道覆盖到哪儿
+			
+			//template:'<div>会覆盖HTML模板{{msg}}</div>',//这里单引号不能换行
+			
+			//反引号可以换行,但是没有关键字符高亮显示
+			data:{
+				msg:"guanpengju"
+			}
+
+	
+		})
+		
+	</script>
+	
+</body>
+</html>

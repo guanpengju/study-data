@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	
+	<meta http-equiv="X-UA-Compatible" content="ie=dege">
+	<title>Document</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+	
+</head>
+<body>
+	<div id="app">
+		<div>{{ num }}</div>
+		
+		<div>{{getFullName()}}</div>
+		<div>{{fullName}}</div><!-- 验证computed，这里直接用属性方式 -->
+		<!-- methods中的方法，如果vue属性改变，则会重新刷新该函数-->
+		<!-- computed中的方法，只有第一次会刷新该函数 -->
+		
+		<button v-on:click="num++">add num</button>
+		<button v-on:click="changeName">changeName</button>
+		
+		<button v-on:click="changeFullName">changeName</button>
+		
+	</div>
+	
+	<script>
+		new Vue({
+			el:"#app",
+			data:{
+				num:0,
+				firstName:"pengju",
+				lastName:"guan"
+			},
+			methods:{
+				getFullName:function(){
+					alert("我执行了");//这里每次点add num按钮，都会执行这句话
+					return this.lastName+this.firstName
+				},
+				changeName:function(){
+					this.firstName="ming";
+					this.lastName="xiao";
+				},
+				changeFullName:function(){
+					this.fullName2="xiao hong";
+					//这里改变的computed中的fullName2的值
+				}
+				
+			}
+			,
+			computed:{
+				fullName:function(){
+					alert("我执行了");//这里只有第一次点击add num按钮才会执行这句话
+					return this.lastName+this.firstName
+				}
+				//也可以定义get、set方法,这是fullName要定义成对象
+				fullName2:{
+					get:function(){
+						return this.lastName+this.firstName;
+					},
+					set:function(newValue){
+						console.log(newValue);
+						var arr = newValue.split(" ");
+						this.lastName=arr[0];
+						this.lastName=arr[1];
+					}
+				}
+				
+			}
+			
+		})
+	</script>
+	
+</body>
+</html>

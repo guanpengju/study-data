@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	
+	<meta http-equiv="X-UA-Compatible" content="ie=dege">
+	<title>Document</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+	<style>
+		.shape{
+			height:150px;
+			width:150px;
+			float:left;
+			margin:10px;
+		}
+		.circle{
+			background:red;
+			border-radius:50%;
+		}
+		.square{
+			background-color:blue;
+		}
+		.triangle{
+			width:0;
+			height:0;
+		}
+		.upTriangle{
+			border-left:100px solid transparent;
+			border-right:100px solid transparent;
+			border-bottom:150px solid orange;
+		}
+		.downTriangle{
+			border-left:100px solid transparent;
+			border-right:100px solid transparent;
+			border-bottom:150px solid green;
+		}
+		.animation{<!-- 动画效果-->
+			animation:strentch 1.0s ease-out;
+		}
+		@keyframes strentch{
+			0%{
+				transform:scale(0.3);
+			}
+			100%{
+				transform:scale(1);
+			}
+		}
+		
+	</style>
+	
+</head>
+<body>
+	<div id="app">
+		<div class="shape square"></div>
+		<hr/>
+		<!-- 如果isRound为true就渲染成circle，false渲染成square -->
+		<div v-for="shape in shapes" class="shape" v-bind:class="{circle:shape.isRound,square:!shape.isRound}"></div>
+		<hr/>
+		<!-- <div v-for="shape in shapes" class="shape" v-bind:class="{shape.shape}"></div>-->
+		<hr/>
+		<div v-for="shape in shapes" class="triangle" v-bind:class="[shape.shape,shape.direction?shape.direction:'']">注意这里是数组</div>
+		
+		<div v-for="shape in shapes" class="triangle" v-bind:class="[shape.shape,shape.direction?shape.direction:'',{animation:shape.animation}]"></div>
+	</div>
+	
+	<script>
+		new Vue({
+			el:"#app",
+			data:{
+				shapes:[
+					{isRound:true},//这个形状是圆
+					{isRound:false},//这个形状不是圆
+					
+					//或者通过下面方式
+					{shape:'circle',animation:true},
+					{shape:'square'},
+					
+					//增加三角形
+					{shape:'triangle',direction:"upTriangle",animation:true},
+					{shape:'triangle',direction:"downTriangle"}
+				]
+			}
+			
+		})
+	</script>
+	
+</body>
+</html>

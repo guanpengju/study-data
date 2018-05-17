@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	
+	<meta http-equiv="X-UA-Compatible" content="ie=dege">
+	<title>Document</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+	
+</head>
+<body>
+	<div id="app">
+
+		<h1>电影列表</h1>
+		<ul>
+			<li>妖猫传</li>
+			<li>芳华</li>
+			<li>复仇者联盟</li>
+		</ul>
+		
+		<!-- 用v-for循环遍历数组 -->
+		<ul>
+			<!-- title是每次循环的别名 -->
+			<!-- 获取每次循环的索引 -->
+			<li v-for="(title,index) in movies">{{index}}:{{ title }}</li>
+		</ul>
+		
+		
+		<!-- 显示数组中的对象 -->
+		<table>
+			<thead>
+				<td>姓名</td>
+				<td>年龄</td>
+				<td>学校</td>
+			</thead>
+			<tbody>
+				<tr v-for="person in persons">
+					<td>{{person.name}}</td>
+					<td>{{person.age}}</td>
+					<td>{{company}}</td>
+				</tr>
+			</tbody>
+		</table>
+		<!-- 对对象的属性进行循环 -->
+		<table>
+			<thead>
+				<td>姓名</td>
+				<td>年龄</td>
+			</thead>
+			<tbody>
+				<tr>
+					<td  v-for="name in person">{{name}}</td>
+					<td  v-for="(name,prop,index) in person">{{prop}}:{{name}}</td>
+					<!-- name是属性值，prop是属性名,index是索引 -->
+				</tr>
+			</tbody>
+		</table>
+		
+		<!-- 对数字的循环 -->
+		<div v-for="(n,index) in 100">
+			{{n}}|{{index}}
+		</div>
+		
+		<!-- 对字符串的循环 -->
+		<div v-for="n in 'guanpengju'">
+			{{n}}
+		</div>
+		
+		
+	</div>
+	
+	<script>
+		new Vue({
+			el:"#app",
+			data:{
+				movies:["妖猫传","芳华","复仇者联盟"],
+				persons:[{
+					name:"guanpengju",
+					age:20
+				},{
+					name:"xiaoming",
+					age:18
+				},{
+					name:"xiaofang",
+					age:18
+				}],//模拟数组中存储对象
+				company:"上海理工",
+				person:{
+					name:"LXB",
+					age:20
+				}
+			}
+			
+		})
+	</script>
+	
+</body>
+</html>

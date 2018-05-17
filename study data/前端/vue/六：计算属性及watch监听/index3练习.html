@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	
+	<meta http-equiv="X-UA-Compatible" content="ie=dege">
+	<title>Document</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+	
+</head>
+<body>
+	<div id="app">
+		1：输出序列电影
+		<ul>
+			<li v-for="item in movies">{{item.name}}({{item.year}})</li>
+		</ul>
+		
+		<!-- 另一种方式，用computed中的方法 -->
+		<ul>
+			<li v-for="movie in formateMovie">{{movie}}</li>
+		</ul>
+		
+		<button v-on:click="addMovie">添加电影</button>
+		
+		
+		
+	</div>
+	
+	<script>
+		new Vue({
+			el:"#app",
+			data:{
+				movies:[{
+					name:"复仇者联盟",
+					year:2018
+				},{
+					name:"捉妖记",
+					year:2019
+				},{
+					name:"唐人街探案2",
+					year:2018
+				}]
+			},
+			
+			computed:{
+				//movie改变，formatMovie就会改变
+				formateMovie:function(){
+					return this.movies.map(function(movie){
+						return movie.name+"("+movie.year+")";
+					})
+					
+				}
+			},
+			
+			methods:{
+				
+				addMovie:function(){
+					//push会监控数组变化，从新渲染dom节点
+					this.movies.push({
+						name:"妖猫传",
+						year:2017
+					})
+				}
+			},
+			watch:{
+				movies:function(newValue){
+					alert("我添加了"+newValue[newValue.length-1].name)
+				}
+			}
+			
+			
+		})
+	</script>
+	
+</body>
+</html>

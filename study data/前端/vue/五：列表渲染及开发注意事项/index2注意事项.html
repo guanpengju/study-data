@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	
+	<meta http-equiv="X-UA-Compatible" content="ie=dege">
+	<title>Document</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+	
+</head>
+<body>
+	<div id="app">
+		<ul>
+			<li v-for="n in numbers">{{n}}</li>
+		</ul>
+		<button v-on:click="changeNumber">click me</button>
+		
+		<div v-for="item in persons" v-bind:key="item.id">
+			<!--v-bind:key="item.id"这样input会根据元素一起转换-->
+			{{item.id}}:{{item.name}}<input type="text"/>
+		</div>
+		
+		<button v-on:click="add">add person</button>
+		
+		<button v-on:click="reverse">reverse</button>
+	</div>
+	
+	<script>
+		new Vue({
+			el:"#app",
+			data:{
+				numbers:[1,2,3,4,5],
+				persons:[
+					{id:1,name:"guanpengju"},
+					{id:2,name:"guanpengju"},
+					{id:3,name:"xiaoming"}
+				]
+			},
+			methods:{
+				changeNumber:function(){
+				
+					this.numbers[1]=10;
+					alert(this.numbers[1]);
+					//这里可以看到alert的10，但是界面上并没有变成10
+					Vue.set(this.numbers,1,10);
+					//通过vue.set可以改变界面的值
+				},
+				add : function(){
+					this.persons.push({id:4,name:"xiaofang"})
+					//这里add直接改变persons中的元素并直接渲染到页面上
+				},
+				reverse:function(){
+					this.persons.reverse()
+					//数组倒置
+				}
+				//重写了push,pop,shift,unshift,reverse,sort,splits
+				
+			}
+			
+		})
+	</script>
+	
+</body>
+</html>

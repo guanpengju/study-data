@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	
+	<meta http-equiv="X-UA-Compatible" content="ie=dege">
+	<title>Document</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+	
+</head>
+<body>
+	<div id="app">
+		{{ value }}<!-- 由于{{}}一定会将属性转成字符串，所以通过v-bind -->
+		<!-- v-bind就是把js中的属性值输出到dom节点上 -->
+		<!-- v-on就是操作dom节点，该变js中的数据 -->
+		<input type="text" v-bind:value="value" v-on:input="input"/>
+		
+		<!-- v-model可以同时实现v-mind和v-on双向,不用函数 -->
+		<input type="text" v-model="value"/>
+		<input type="text" v-model.number.enter.space.trim="value"/>
+		<!-- v-model可以同时实现v-mind和v-on双向,不用函数 -->
+		{{ typeof value }}
+		<!-- 可以查看value的类型
+			.trim去除字符串
+			.number转成数字
+			.lazy只有input失去焦点时才改变value值
+		-->
+	</div>
+	
+	<script>
+		new Vue({
+			el:"#app",
+			data:{
+				value:"guanpengju"
+			},
+			methods:{
+				input:function(event){
+					this.value=event.target.value
+				}
+			}
+			//这就是双向绑定，首先把value输入到input框中
+			//然后写一个事件，
+			
+		})
+	</script>
+	
+</body>
+</html>

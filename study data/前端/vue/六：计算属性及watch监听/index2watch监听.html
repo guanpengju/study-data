@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	
+	<meta http-equiv="X-UA-Compatible" content="ie=dege">
+	<title>Document</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+	
+</head>
+<body>
+	<div id="app">
+		<input type="text" v-model="searchInfo"/>
+		
+		<div v-if="showSearching"> 正在搜索...</div>
+		
+		<ul>
+			<li v-for="item in result">{{item}}</li>
+		</ul>
+		
+	</div>
+	
+	<script>
+		new Vue({
+			el:"#app",
+			data:{
+				searchInfo:"",
+				showSearching:false,
+				result:[]
+			},
+			watch:{
+				//监听searchInfo的改变
+				searchInfo:function(query){
+					//query就是每次改变的新的值
+					console.log(query);//在控制台打印
+					this.showSearching=true;
+					console.log(this);//这里是vue实例
+					var vm= this;
+					setTimeout(function(){
+						this.result=["html","css","js"];
+						console.log(this.result);
+						console.log(this);//这里是window实例
+						//可以看到控制台能输出result
+						//但是jsp页面没有输出
+						//因为这里的function是window调用而不是vue调用
+						//解决办法，在searchInfo中定义一个vue实例，然后在里面的函数调用
+					},500);
+					//用下面代替上面的
+					setTimeout(function(){
+						vm.result=["html","css","js"];
+						vm.showSearching=false;
+					},500)
+				}
+			}
+			//watch没有返回值，可以是一个if操作
+			//computed可以有返回值，必须是一个同步操作
+			
+		})
+	</script>
+	
+</body>
+</html>
